@@ -96,12 +96,12 @@ def write_curve_shape(spline, mtrx=None):
         # When a matrix is supplied, this will be baked to the vertices
         for pt in points:
             t_vec = mathutils.Vector((mtrx[0][3], mtrx[2][3],-mtrx[1][3], 0.0)) 
-            wpt = (maya_mtrx * mtrx) @ pt.co + t_vec
+            wpt = (maya_mtrx @ mtrx) @ pt.co + t_vec
             curve_attrs.append('        %s %s %s \n' %(wpt[0], wpt[1], wpt[2]) )
     else:
         #Using the local verts coordinates
         for pt in points:
-            pt = maya_mtrx * pt.co
+            pt = maya_mtrx @ pt.co
             curve_attrs.append('        %s %s %s \n' %(pt[0], pt[1], pt[2]) )
 
     curve_attrs.append('        ; \n')
